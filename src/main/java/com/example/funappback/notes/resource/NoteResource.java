@@ -5,6 +5,7 @@ import com.example.funappback.notes.service.NoteService;
 import com.example.funappback.notes.model.Note;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,10 +37,11 @@ public class NoteResource {
         return new ResponseEntity<>(newNote, HttpStatus.OK);
     }
 
+    @Transactional
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable Long id) {
+    public ResponseEntity<?> deleteNote(@PathVariable("id") Long id) {
         noteService.deleteNote(id);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
